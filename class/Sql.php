@@ -7,14 +7,14 @@
 		private $conn;
 
 		public function __construct(){
-			$this->conn = new PDO("mysql:host=localhost;dbname=dbphp7", "root", "");
+			$this->conn = new PDO("mysql:host=localhost;dbname=dbphp7", "root", "33922251oi");
 		}
 
 
 		private function setParams($statment, $parameters = array()){
 
 			foreach ($parameters as $key => $value) {
-				$statment->setParam($key, $value);
+				$this->setParam($statment, $key, $value);
 			}
 			
 		}
