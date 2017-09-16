@@ -25,7 +25,7 @@
 		}
 
 		public function query($rowQuery, $params = array()){
-			$stmt = $this->conn->prepare($rawQuery);
+			$stmt = $this->conn->prepare($rowQuery);
 
 			$this->setParams($stmt, $params);
 			
