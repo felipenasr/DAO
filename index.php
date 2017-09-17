@@ -19,12 +19,23 @@
 	// echo json_encode($lista);
 
 	// login
-	$lista = new Usuario;
-	$lista->login("felipe", "123asd456");
-	echo $lista;
+	// $lista = new Usuario();
+	// $lista->login("felipe", "123asd456");
+	// echo $lista;
+
+	// adicionando ao banco
+	// $aluno = new Usuario("Ka", "teste");
+	// $aluno->insert();
+	// echo $aluno;
 
 
+	$aluno = new Usuario("Ka", "teste");
+	$aluno->loadById(21);
 
+	$aluno->update("Iracema", "teste");
 	
+	echo $aluno;
+
+
 
 ?>

@@ -47,11 +47,7 @@ class Usuario{
 	
 		if (count($results) > 0) {
 			$row = $results[0];
-			$this->setIdusuario($row['idusuario']);
-
-			$this->setDeslogin($row['deslogin']);
-			$this->setDessenha($row['dessenha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+			$this->setData($results[0]);
 		}
 	}
 
@@ -71,7 +67,6 @@ class Usuario{
 		return $list;
 	}
 
-
 	public function login($login, $psswd){
 		$sql = new Sql();
 
@@ -79,14 +74,54 @@ class Usuario{
 
 		if (count($list) > 0) {
 			$row = $list[0];
-			$this->setIdusuario($row['idusuario']);
-			$this->setDeslogin($row['deslogin']);
-			$this->setDessenha($row['dessenha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+			$this->setData($list[0]);
 		}else{
 			throw new Exception("Error Processing Request");
 			
 		}
+	}
+
+
+	public function setData($data){	
+		$this->setIdusuario($data['idusuario']);
+		$this->setDeslogin($data['deslogin']);
+		$this->setDessenha($data['dessenha']);
+		$this->setDtcadastro(new DateTime($data['dtcadastro']));
+
+	}
+
+
+	public function insert(){
+		 $sql = new Sql();
+
+		 $results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PSSWD)", array(":LOGIN"=>$this->getDeslogin(), ":PSSWD"=>$this->getDessenha()));
+
+		if (count($results) > 0) {
+			$row = $results[0];
+			$this->setData($results[0]);
+		}
+	}
+
+
+	public function update($login, $pass){
+
+		$this->setDeslogin($login);
+		$this->setDessenha($pass);
+
+
+		$sql = new Sql();
+
+		$sql->query("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PSSWD WHERE idusuario = :ID", array(
+			":LOGIN"=>$this->getDeslogin(),
+			":PSSWD"=>$this->getDessenha(),
+			":ID"=>$this->getIdusuario() ));
+	}
+
+	public function __construct($login='', $pass=''){
+
+		$this->setDeslogin($login);
+		$this->setDessenha($pass);
+		
 	}
 
 	public function __toString(){
