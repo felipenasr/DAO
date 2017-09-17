@@ -29,11 +29,16 @@
 	// echo $aluno;
 
 
-	$aluno = new Usuario("Ka", "teste");
-	$aluno->loadById(21);
+	// alterando usuario
+	// $aluno = new Usuario("Ka", "teste");
+	// $aluno->loadById(21);
+	// $aluno->update("Iracema", "teste");	
+	// echo $aluno;
 
-	$aluno->update("Iracema", "teste");
-	
+
+	$aluno = new Usuario();
+	$aluno->loadById(12);
+	$aluno->delete(12);	
 	echo $aluno;
 
 
